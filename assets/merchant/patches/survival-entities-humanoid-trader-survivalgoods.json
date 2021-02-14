@@ -1,0 +1,14 @@
+[
+  {
+    "op": "add",
+    "path": "/server/behaviors/6/aitasks/0/entityCodes/1",
+    "value": "drifter-*",
+    "file": "game:entities/humanoid/trader-survivalgoods.json"
+  },
+  {
+    "op": "add",
+    "path": "/server/behaviors/6/aitasks/2/entityCodes/1",
+    "value": "drifter-*",
+    "file": "game:entities/humanoid/trader-survivalgoods.json"
+  }
+]

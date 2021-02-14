@@ -1,0 +1,12 @@
+{
+  "block-welcomemat" : "Welcome Mat",
+
+  "blockdesc-welcomemat" : "Invite weary traders for a night of rest and trade.",
+  "Not built right!": "Not built right!",
+  "No place to rest!": "No place to rest!",
+  "No food for next guest!": "No food for next guest!",
+  "Another merchant arrives in {0} days": "Another merchant arrives in {0} days",
+  "Another merchant arrives in less than a day": "Another merchant arrives in less than a day",
+  "Merchant leaves in {0} days": "Merchant leaves in {0} days",
+  "Merchant leaves in less than a day": "Merchant leaves in less than a day",
+}

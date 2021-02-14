@@ -1,0 +1,11 @@
+{
+  "type": "code",
+  "modid": "merchant",
+  "name": "Travelling Merchants",
+  "author": "jakecool19",
+  "description": "Give a place for travelling merchants to rest their heads",
+  "version": "0.94",
+  "dependency": {
+    "game": ""
+  }
+}

@@ -1,0 +1,12 @@
+{
+	ingredientPattern: "LLL",
+	enabled: true,
+	shapeless: true,
+	ingredients: {
+		"L": { type: "item", code: "game:flaxtwine", quantity: 4},
+	},
+	name: "welcomemat",
+	width: 3,
+	height: 1,
+	output: { type: "block", code: "merchant:welcomemat", quantity: 1}
+}
