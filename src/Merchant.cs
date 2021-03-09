@@ -8,6 +8,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace Merchant
@@ -31,7 +32,6 @@ namespace Merchant
         bool nobed;
         bool nofood;
         double timer;
-        long tracker;
         ItemSlot foodsource;
         int maxTravelDays
         { get { return Block?.Attributes?["maxTravelDays"].AsInt(4) ?? 4; } }
@@ -57,6 +57,10 @@ namespace Merchant
         }
         double nextTenantIn;
         double tenantLeavingIn;
+        AssetLocation[] badFood
+        {
+            get { return AssetLocation.toLocations(Block.Attributes["badFood"].AsArray<string>(new string[0])); }
+        }
 
 
         public override void Initialize(ICoreAPI api)
@@ -66,7 +70,7 @@ namespace Merchant
             entityUtil = api.ModLoader.GetModSystem<EntityPartitioning>();
             if (timer == 0) timer = api.World.Calendar.TotalHours;
 
-            tracker = api.World.RegisterGameTickListener(checkConditions, 1000);
+            RegisterGameTickListener(checkConditions, 10);
         }
 
         public override void OnBlockPlaced(ItemStack byItemStack = null)
@@ -194,13 +198,6 @@ namespace Merchant
         {
             base.OnBlockRemoved();
             evictTenant();
-            Api.World.UnregisterGameTickListener(tracker);
-        }
-
-        public override void OnBlockUnloaded()
-        {
-            base.OnBlockUnloaded();
-            Api.World.UnregisterGameTickListener(tracker);
         }
 
         public Entity haveTenant()
@@ -290,7 +287,7 @@ namespace Merchant
 
                     foreach (ItemSlot slot in bec.Inventory)
                     {
-                        if (slot.Itemstack?.Collectible?.NutritionProps != null)
+                        if (slot.Itemstack?.Collectible?.NutritionProps != null && !FindMatchCode(slot.Itemstack.Collectible.Code))
                         {
                             result = true;
                             foodsource = slot;
@@ -312,6 +309,20 @@ namespace Merchant
             guest.Pos.SetFrom(guest.ServerPos);
             Api.World.SpawnEntity(guest);
             eid = guest.EntityId;
+        }
+
+        public bool FindMatchCode(AssetLocation needle)
+        {
+            if (needle == null) return false;
+
+            foreach (AssetLocation hay in badFood)
+            {
+                if (hay.Equals(needle)) return true;
+
+                if (hay.IsWildCard && WildcardUtil.GetWildcardValue(hay, needle) != null) return true;
+            }
+
+            return false;
         }
     }
 }

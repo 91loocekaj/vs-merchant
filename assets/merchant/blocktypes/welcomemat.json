@@ -17,6 +17,10 @@
       "humanoid-trader-survivalgoods",
       "humanoid-trader-commodities"
     ],
+		badFood: [
+			"game:bowl-*",
+			"mushroom-flyagaric-*"
+		],
 		gifts: [
 			{ type: "item", code: "gear-rusty", quantity: 2  },
 			{ type: "item", code: "gear-rusty", quantity: 4  },
